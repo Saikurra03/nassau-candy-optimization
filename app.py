@@ -6,6 +6,7 @@ import sys, os
 sys.path.insert(0, os.path.abspath('.'))
 from utils.factory_config import FACTORIES, PRODUCT_FACTORY_MAP
 from utils.data_prep import prepare_data
+from modules import page_0_about
 st.set_page_config(page_title="Nassau Candy Optimizer", layout="wide")
 @st.cache_resource
 def load_model():
@@ -16,10 +17,18 @@ def load_data():
 model, features = load_model()
 df = load_data()
 st.sidebar.title("Navigation")
-page = st.sidebar.radio("Go to", ["Factory Optimization Simulator", "What-If Scenario Analysis", "Recommendation Dashboard", "Risk & Impact Panel"])
+page = st.sidebar.radio("Go to", [
+    "📖 About & User Guide",
+    "Factory Optimization Simulator", 
+    "What-If Scenario Analysis", 
+    "Recommendation Dashboard", 
+    "Risk & Impact Panel"
+])
 st.title("Factory Reallocation & Shipping Optimization")
 st.caption("Nassau Candy Distributor - Decision Intelligence System")
-if page == "Factory Optimization Simulator":
+if page == "📖 About & User Guide":
+    page_0_about.run()
+elif page == "Factory Optimization Simulator":
     from modules import page_1_simulator
     page_1_simulator.show(df, model, features)
 elif page == "What-If Scenario Analysis":
